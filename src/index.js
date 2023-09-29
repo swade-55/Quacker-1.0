@@ -1,10 +1,15 @@
+import { db } from "../Firebase.js"
+
 let addToy = false;
+
 
 function fetchToys(){
   return fetch(` http://localhost:3000/toys`)
   .then(res=>res.json())
   .then(data=>renderToys(data))
 };
+
+
 
 function renderToys(toys){
   const toyCollection = document.getElementById('toy-collection');
