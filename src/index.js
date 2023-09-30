@@ -1,91 +1,90 @@
-import { db } from "../Firebase.js"
+// import { db } from "../Firebase.js"
 
-let addToy = false;
+let addQuack = false;
 
 
-function fetchToys(){
-  return fetch(` http://localhost:3000/toys`)
+function fetchQuacks(){
+  return fetch(`http://localhost:3000/quacks`)
   .then(res=>res.json())
-  .then(data=>renderToys(data))
+  .then(data=>renderQuacks(data))
 };
 
 
 
-function renderToys(toys){
-  const toyCollection = document.getElementById('toy-collection');
-  toys.forEach(toy=>{
-    const toyDiv = document.createElement('div');
-    const toyH2 = document.createElement('h2');
-    const toyImage = document.createElement('img');
-    const toyButton = document.createElement('button');
-    toyButton.addEventListener('click',(e)=>{
-      fetch(`http://localhost:3000/toys/${toy.id}`,{
+function renderQuacks(quacks){
+  const quackCollection = document.getElementById('quack-collection');
+  quacks.forEach(quack=>{
+    const quackDiv = document.createElement('div');
+    const quackH2 = document.createElement('h2');
+    const quackContent = document.createElement('p');
+    const quackButton = document.createElement('button');
+    quackButton.addEventListener('click',(e)=>{
+      fetch(`http://localhost:3000/quacks/${quack.id}`,{
         method: 'PATCH',
         headers: {
           'Content-Type':'application/json',
         },
-        body: JSON.stringify({likes: toy.likes+1})
+        body: JSON.stringify({likes: quack.likes+1})
       })
       .then((data)=>data.json())
       .then(res => {
-        toy.likes = res.likes
-        toyLikes.textContent = res.likes
+        quack.likes = res.likes
+        quackLikes.textContent = res.likes
    })   
     })
-    const toyLikes = document.createElement('p');
-    toyLikes.textContent = toy.likes;
-    toyButton.textContent = 'like';
-    toyButton.classList.add('like-btn');
-    toyButton.setAttribute('id',toy.id);
-    toyImage.src = toy.image;
-    toyImage.classList.add('toy-avatar');
-    toyDiv.appendChild(toyImage);
-    toyH2.textContent = toy.name;
-    toyDiv.appendChild(toyH2);
-    toyDiv.appendChild(toyButton);
-    toyDiv.appendChild(toyLikes);
-    toyDiv.classList.add('card');
-    toyCollection.appendChild(toyDiv);
+    const quackLikes = document.createElement('p');
+    quackLikes.textContent = quack.likes;
+    quackButton.textContent = 'like';
+    quackButton.classList.add('like-btn');
+    quackButton.setAttribute('id',quack.id);
+    quackContent.textContent = quack.postContent
+    quackDiv.appendChild(quackContent);
+    quackH2.textContent = quack.name;
+    quackDiv.appendChild(quackH2);
+    quackDiv.appendChild(quackButton);
+    quackDiv.appendChild(quackLikes);
+    quackDiv.classList.add('card');
+    quackCollection.appendChild(quackDiv);
   })
 }
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  fetchToys();
-  const addBtn = document.querySelector("#new-toy-btn");
-  const toyFormContainer = document.querySelector(".container");
+  fetchQuacks();
+  const addBtn = document.querySelector("#new-quack-btn");
+  const quackFormContainer = document.querySelector(".container");
   addBtn.addEventListener("click", () => {
     // hide & seek with the form
-    addToy = !addToy;
-    if (addToy) {
-      toyFormContainer.style.display = "block";
+    addQuack = !addQuack;
+    if (addQuack) {
+      quackFormContainer.style.display = "block";
     } else {
-      toyFormContainer.style.display = "none";
+      quackFormContainer.style.display = "none";
     }
   });
 });
 
 
-let createToy = document.getElementsByClassName('add-toy-form')[0];
-createToy.addEventListener('submit',(e)=>{
+let createQuack = document.getElementsByClassName('add-quack-form')[0];
+createQuack.addEventListener('submit',(e)=>{
   e.preventDefault()  
-  let toyObject = {
-    name: document.getElementsByClassName('add-toy-form')[0].childNodes[3].value,
-    image: document.getElementsByClassName('add-toy-form')[0].childNodes[7].value,
+  let quackObject = {
+    name: document.getElementsByClassName('add-quack-form')[0].childNodes[3].value,
+    image: document.getElementsByClassName('add-quack-form')[0].childNodes[7].value,
     likes: 0,
   }
-  addNewToy(toyObject);
+  addNewQuack(quackObject);
 });
 
 
-function addNewToy(toyObject){
-  return fetch(`http://localhost:3000/toys`,{
+function addNewQuack(quackObject){
+  return fetch(`http://localhost:3000/quacks`,{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(toyObject)
+    body: JSON.stringify(quackObject)
   })
   .then(res=>res.json())
-  .then(toy=>renderToys([toy]))
+  .then(quack=>renderQuacks([quack]))
 }

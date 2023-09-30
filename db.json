@@ -1,52 +1,58 @@
 {
-  "toys": [
+  "quacks": [
     {
       "id": 1,
-      "name": "Woody",
-      "image": "http://www.pngmart.com/files/3/Toy-Story-Woody-PNG-Photos.png",
-      "likes": 5
+      "name": "Tim",
+      "likes": 5,
+      "postContent": "Just discovered a new coffee shop in my neighborhood, and it's a game-changer! ☕️ #CoffeeLover #HiddenGems"
     },
     {
       "id": 2,
-      "name": "Buzz Lightyear",
-      "image": "http://www.pngmart.com/files/6/Buzz-Lightyear-PNG-Transparent-Picture.png",
-      "likes": 8
+      "name": "Buzz",
+      "likes": 8,
+      "postContent": "Spent the entire weekend binge-watching my favorite TV show. Now I need recommendations for what to watch next! 📺 #TVAddict #WeekendVibes"
     },
     {
       "id": 3,
-      "name": "Mr. Potato Head",
-      "image": "https://vignette.wikia.nocookie.net/universe-of-smash-bros-lawl/images/d/d8/Mr-potato-head-toy-story.gif/revision/latest?cb=20151129131217",
-      "likes": 3
+      "name": "Pop",
+      "likes": 3,
+      "postContent": "Started a new book today, and I'm already hooked! 📚 Any book recommendations for my next read? #BookWorm #ReadingList"
     },
     {
       "id": 4,
-      "name": "Slinky Dog",
-      "image": "https://www.freeiconspng.com/uploads/slinky-png-transparent-1.png",
-      "likes": 4
+      "name": "Slinky",
+      "likes": 4,
+      "postContent": "Trying out a new recipe tonight! Fingers crossed it turns out as good as it looks on Pinterest. 🍲 #CookingAdventures #Foodie"
     },
     {
       "id": 5,
       "name": "Rex",
-      "image": "https://static.wikia.nocookie.net/disney/images/5/56/Profile_-_Rex.jpeg/revision/latest?cb=20190313050619",
-      "likes": 1
+      "likes": 1,
+      "postContent": "Just finished a killer workout, and I'm feeling unstoppable! 💪 #FitnessMotivation #WorkoutWednesday"
     },
     {
       "id": 6,
-      "name": "Bo Peep",
-      "image": "http://4.bp.blogspot.com/_OZHbJ8c71OM/Sog43CMFX2I/AAAAAAAADEs/0AKX0XslD4g/s400/bo.png",
-      "likes": 2
+      "name": "Sally",
+      "likes": 2,
+      "postContent": "Is it just me, or does time fly on weekends? Monday already? 😅 #WeekendBlues #TimeFlies"
     },
     {
       "id": 7,
-      "name": "Hamm",
-      "image": "https://cdn140.picsart.com/244090226021212.png?r1024x1024",
-      "likes": 0
+      "name": "John",
+      "likes": 0,
+      "postContent": "Spontaneous road trip with friends! 🚗 Destination: Adventure. Let the good times roll! #RoadTrip #AdventureTime"
     },
     {
       "id": 8,
-      "name": "Little Green Men",
-      "image": "http://www.pngmart.com/files/3/Toy-Story-Alien-PNG-File.png",
-      "likes": 1
+      "name": "Sky",
+      "likes": 1,
+      "postContent": "Caught the sunrise this morning, and it was absolutely breathtaking. Nature's beauty never ceases to amaze me. 🌅 #NatureLover #MorningInspiration"
+    },
+    {
+      "name": "sadd",
+      "image": "",
+      "likes": 5,
+      "id": 9
     }
   ]
 }

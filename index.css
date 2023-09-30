@@ -3,57 +3,51 @@ body {
   font-family: monospace;
 }
 
-#logo-header {
+#quack-header {
   display: flex;
-  justify-content: inbetween;
-  background: #FFFADD;
+  justify-content: center;
+  background: #515DA2;
   opacity: .8;
-  height: 4rem;
+  height: 7rem;
   padding: 1rem;
 }
 
-#main-page {
-  display: flex;
-  flex-direction: row-reverse;
+#quack-header img {
+  height: 6rem;
+  width: auto;
 }
 
-#chat-box {
-  width: 70%;
-  height: 50rem;
-  background-color:white;
-  border-color: black;
-  border-radius: 2px;
-  display: flex;
-  flex-direction: column;
-  margin: 1rem;
+#quack-collection {
+  margin: 2rem;
 }
 
-#top-quacks {
-  width: 30%;
-  height: 50rem;
-  background-color:aliceblue;
-  margin: 1rem;
-  margin-left: 0rem;
+.card {
+  text-align: center;
+  border: grey solid 1px;
+  padding: 1rem;
+  width: 15rem;
+  height: 25rem;
+  display: inline-grid;
+  margin: 1rem 2rem;
+  box-shadow: 3px 4px #e04b52
 }
 
-#send-quack {
-  display: flex;
-  flex-direction: column;
+.quack-avatar {
+  justify-self: center;
+  height: 12rem;
+  width: auto;
 }
-
 
 button {
   position: relative;
-  background-color: #FFFADD;
+  background-color: #e04b52;
   border: none;
   border-radius: 5px;
   height: 3rem;
   width: max-content;
-  color: black;
+  color: whitesmoke;
   font-size: 18px;
   justify-self: center;
-  margin: 1rem;
-  margin-top: 0rem;
 }
 
 button:hover {
@@ -69,6 +63,10 @@ button:hover {
   display: none;
   background: #515DA2;
   opacity: .8;
+}
+
+.add-quack-form {
+  width: 80%
 }
 
 .submit {
@@ -92,13 +90,10 @@ button:hover {
 
 
 .input-text {
-  border-radius: 1px;
-  border-top: #FFFADD;
-  border-left: #FFFADD;
-  border-right:#FFFADD;
-  height: 4rem;
+  border-radius: 5px;
+  height: 2rem;
   width: 60%;
-  font-size: 16px;
+  font-size: 18px;
   font-family: monospace;
-  margin: 1rem;
+  margin: 3px;
 }

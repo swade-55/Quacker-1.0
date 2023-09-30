@@ -2,41 +2,50 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <title>Quacker</title>
+    <title>quack Tale</title>
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <div id="logo-header">
+    <div id="quack-header">
       <img
-        src=".//logo.png"
-        alt="logo-header"
+        src="https://fontmeme.com/permalink/180719/67429e6afec53d21d64643101c43f029.png"
+        alt="quack-header"
       />
     </div>
 
-    <div id="main-page">
-      <div id="top-quacks">
+    <div class="container">
+      <form class="add-quack-form">
+        <h3>Create a quack!</h3>
 
-      </div>
-      <div id="chat-box">
-        <form id="send-quack">
-          <input
+        <input
           type="text"
           name="name"
           value=""
-          placeholder="What the duck is on your mind?"
+          placeholder="Enter a quack's name..."
           class="input-text"
-          />  
-          <button type="submit">Quack</button>
-        </form>
-      </div>
-      <div id="feed">
-        <h2>Feed</h2>
-        <ul id="posts">
-        </ul>
-
-      </div>
+        />
+        <br />
+        <input
+          type="text"
+          name="image"
+          value=""
+          placeholder="Enter a quack's image URL..."
+          class="input-text"
+        />
+        <br />
+        <input
+          type="submit"
+          name="submit"
+          value="Create quack"
+          class="submit"
+        />
+      </form>
     </div>
-    <div id="toy-collection"></div>
+    <p style="text-align:center">
+      Andy needs your help! <button id="new-quack-btn">Add a new quack!</button>
+    </p>
+
+    <div id="quack-collection"></div>
     <script type="text/javascript" src="src/index.js"></script>
   </body>
 </html>
