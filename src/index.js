@@ -70,7 +70,7 @@ createQuack.addEventListener('submit',(e)=>{
   e.preventDefault()  
   let quackObject = {
     name: document.getElementsByClassName('add-quack-form')[0].childNodes[3].value,
-    image: document.getElementsByClassName('add-quack-form')[0].childNodes[7].value,
+    postContent: document.getElementsByClassName('add-quack-form')[0].childNodes[7].value,
     likes: 0,
   }
   addNewQuack(quackObject);
