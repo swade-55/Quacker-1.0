@@ -34,13 +34,13 @@ function renderQuacks(quacks){
     })
     const quackLikes = document.createElement('p');
     quackLikes.textContent = quack.likes;
-    quackButton.textContent = 'like';
+    quackButton.textContent = 'Like';
     quackButton.classList.add('like-btn');
     quackButton.setAttribute('id',quack.id);
-    quackContent.textContent = quack.postContent
-    quackDiv.appendChild(quackContent);
     quackH2.textContent = quack.name;
     quackDiv.appendChild(quackH2);
+    quackContent.textContent = quack.postContent
+    quackDiv.appendChild(quackContent);
     quackDiv.appendChild(quackButton);
     quackDiv.appendChild(quackLikes);
     quackDiv.classList.add('card');

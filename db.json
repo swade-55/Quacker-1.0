@@ -3,13 +3,13 @@
     {
       "id": 1,
       "name": "Tim",
-      "likes": 5,
+      "likes": 6,
       "postContent": "Just discovered a new coffee shop in my neighborhood, and it's a game-changer! ☕️ #CoffeeLover #HiddenGems"
     },
     {
       "id": 2,
       "name": "Buzz",
-      "likes": 8,
+      "likes": 11,
       "postContent": "Spent the entire weekend binge-watching my favorite TV show. Now I need recommendations for what to watch next! 📺 #TVAddict #WeekendVibes"
     },
     {
@@ -39,7 +39,7 @@
     {
       "id": 7,
       "name": "John",
-      "likes": 0,
+      "likes": 1,
       "postContent": "Spontaneous road trip with friends! 🚗 Destination: Adventure. Let the good times roll! #RoadTrip #AdventureTime"
     },
     {

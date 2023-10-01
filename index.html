@@ -2,50 +2,70 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <title>quack Tale</title>
+    <title>Quacker</title>
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <div id="quack-header">
+    <div id="logo-header">
       <img
-        src="https://fontmeme.com/permalink/180719/67429e6afec53d21d64643101c43f029.png"
+        src="./logo.png"
         alt="quack-header"
       />
     </div>
 
-    <div class="container">
-      <form class="add-quack-form">
-        <h3>Create a quack!</h3>
-
-        <input
-          type="text"
-          name="name"
-          value=""
-          placeholder="Enter a quack's name..."
-          class="input-text"
-        />
-        <br />
-        <input
-          type="text"
-          name="image"
-          value=""
-          placeholder="Enter a quack's content"
-          class="input-text"
-        />
-        <br />
-        <input
-          type="submit"
-          name="submit"
-          value="Create quack"
-          class="submit"
-        />
-      </form>
+    <div id="main-page">
+      <div id="top-quacks">
+        <h1 id="top-quack-title">Top Quacks For You</h1>
+        <div id="top-quack-item">
+          <h3>GrandpaC</h3>
+          <p>Cooked up a storm in the kitchen...</p>
+          <p style="color: lightgray;">10 Likes</p>
+        </div>
+        <div id="top-quack-item">
+          <h3>Sam Sam</h3>
+          <p>Woke up to the most...</p>
+          <p style="color: lightgray;">20 Likes</p>
+        </div>
+        <div id="top-quack-item">
+          <h3>Praneeth</h3>
+          <p>Yummy foood...</p>
+          <p style="color: lightgray;">10000 Likes</p>
+        </div>
+      </div>
+      <div id="chat-box">
+        <p style="text-align:center">
+          <button id="new-quack-btn">Add a new quack!</button>
+        </p>
+        <div class="container">
+          <form class="add-quack-form">
+            <input
+            type="text"
+            name="name"
+            value=""
+            placeholder="User Name"
+            class="input-text"
+          />
+          <br />
+          <input
+            type="text"
+            name="image"
+            value=""
+            placeholder="What's Quackin?"
+            class="input-text"
+          />
+            <br />
+            <input
+              type="submit"
+              name="submit"
+              value="Quack"
+              class="submit"
+            />
+          </form>
+        </div>
+        <div id="quack-collection"></div>
+      </div>
     </div>
-    <p style="text-align:center">
-      Andy needs your help! <button id="new-quack-btn">Add a new quack!</button>
-    </p>
-
-    <div id="quack-collection"></div>
+  
     <script type="text/javascript" src="src/index.js"></script>
   </body>
 </html>
