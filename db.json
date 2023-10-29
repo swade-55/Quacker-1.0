@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Tim",
-      "likes": 6,
+      "likes": 7,
       "postContent": "Just discovered a new coffee shop in my neighborhood, and it's a game-changer! ☕️ #CoffeeLover #HiddenGems"
     },
     {
@@ -65,6 +65,18 @@
       "postContent": "furck ths shidefst",
       "likes": 3,
       "id": 11
+    },
+    {
+      "likes": 0,
+      "id": 12
+    },
+    {
+      "likes": 0,
+      "id": 13
+    },
+    {
+      "likes": 0,
+      "id": 14
     }
   ]
 }

@@ -1,10 +1,11 @@
-// import { db } from "../Firebase.js"
+ import { db } from "../Firebase.js"
+ import { doc, addDoc, getDocs, collection,increment } from "firebase/firestore";
 
 let addQuack = false;
 
-
 function fetchQuacks(){
-  return fetch(`http://localhost:3000/quacks`)
+  console.log("Fetching quacks")
+  return getDocs(collection(db, "Quacks"))
   .then(res=>res.json())
   .then(data=>renderQuacks(data))
 };
@@ -19,12 +20,8 @@ function renderQuacks(quacks){
     const quackContent = document.createElement('p');
     const quackButton = document.createElement('button');
     quackButton.addEventListener('click',(e)=>{
-      fetch(`http://localhost:3000/quacks/${quack.id}`,{
-        method: 'PATCH',
-        headers: {
-          'Content-Type':'application/json',
-        },
-        body: JSON.stringify({likes: quack.likes+1})
+      updateDoc(doc(db, "Quacks", quack.id), {
+        Likes: increment(1),
       })
       .then((data)=>data.json())
       .then(res => {
