@@ -32,10 +32,8 @@
           <p style="color: lightgray;">10000 Likes</p>
         </div>
       </div>
+
       <div id="chat-box">
-        <p style="text-align:center">
-          <button id="new-quack-btn">Add a new quack!</button>
-        </p>
         <div class="container">
           <form class="add-quack-form">
             <input
@@ -62,11 +60,18 @@
             />
           </form>
         </div>
-        <script src="src/index.js" type="module"></script>
+       <script src="/src/index.js" type="module"></script>
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            console.log('rendering quacks');
+            fetchQuacks();
+
+          });
+        </script>
         <div id="quack-collection"></div>
       </div>
     </div>
   
-    <script type="text/javascript" src="src/index.js"></script>
+    <script src="/src/index.js" type="module"></script>
   </body>
 </html>

@@ -95,11 +95,25 @@ class QuackApi {
   }
 
   fetchQuacks() {
-    console.log("Fetching quacks");
-    return getDocs(collection(db, "Quacks"))
-      .then((snapshot) => {
-        const quacks = snapshot.docs.map((doc) => doc.data());
-        this.renderQuacks(quacks);
+    // console.log("Fetching quacks");
+    // return getDocs(collection(db, "Quacks"))
+    //   .then((snapshot) => {
+    //     const quacks = snapshot.docs.map((doc) => doc.data());
+    //     this.renderQuacks(quacks);
+    //   });
+    const quacksCollection = collection(db, "Quacks");
+
+    getDocs(quacksCollection)
+      .then((querySnapshot) => {
+        const quacks = [];
+        querySnapshot.forEach((doc) => {
+          quacks.push(doc.data());
+        });
+        // Call a rendering function to display the data
+        renderQuacks(quacks);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
       });
   }
 

@@ -27,7 +27,7 @@
   "homepage": "https://github.com/learn-co-curriculum/phase-1-practice-toy-tale#readme",
   "dependencies": {
     "chai": "^4.2.0",
-    "firebase": "^10.4.0",
+    "firebase": "^10.5.2",
     "jsdom": "^9.0",
     "json-server": "^0.17.4",
     "mocha": "5.2.0",
