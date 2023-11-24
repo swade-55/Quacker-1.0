@@ -1,51 +1,70 @@
-const express = require('express');
+const http = require('http');
 const path = require('path');
-const quackApi = require('./db'); // Import your database operations
-const app = express();
+const fs = require('fs');
+const url = require('url');
+const quackApi = require('./db'); // Assuming this is your custom module for database operations
+
 const port = process.env.PORT || 3000;
 
-app.use(express.json());
+const server = http.createServer(async (req, res) => {
+  const parsedUrl = url.parse(req.url, true);
+  const pathname = parsedUrl.pathname;
 
-// Serve static files from the 'public' directory (or 'src' based on your structure)
-app.use(express.static(path.join(__dirname, 'src')));
+  // Handle API routes
+  if (pathname === '/quacks' && req.method === 'GET') {
+    try {
+      const quacks = await quackApi.getAllQuacks();
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(quacks));
+    } catch (error) {
+      res.writeHead(500);
+      res.end(JSON.stringify({ error: error.message }));
+    }
+  } else if (pathname === '/top-quacks' && req.method === 'GET') {
+    try {
+      const topQuacks = await quackApi.getTopFiveQuacks();
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(topQuacks));
+    } catch (error) {
+      res.writeHead(500);
+      res.end(JSON.stringify({ error: error.message }));
+    }
+  } else {
+    // Serve static files
+    let filePath = path.join(__dirname, 'src', pathname === '/' ? 'index.html' : pathname);
+    const ext = path.extname(filePath);
+    let contentType = 'text/html';
 
-// Define routes to use your database operations, for example:
-app.get('/quacks', async (req, res) => {
-  const quacks = await quackApi.getAllQuacks();
-  res.json(quacks);
-});
+    switch (ext) {
+      case '.js':
+        contentType = 'text/javascript';
+        break;
+      case '.css':
+        contentType = 'text/css';
+        break;
+      // Add more cases for other file types if needed
+    }
 
-// Serve your index.html file at the root path
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'src', 'index.html'));
-});
-
-app.get('/top-quacks', async (req, res) => {
-  try {
-    const topQuacks = await quackApi.getTopFiveQuacks();
-    res.json(topQuacks);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    fs.readFile(filePath, (err, content) => {
+      if (err) {
+        if (err.code == 'ENOENT') {
+          // Page not found
+          res.writeHead(404);
+          res.end('Page not found');
+        } else {
+          // Some server error
+          res.writeHead(500);
+          res.end('Server error');
+        }
+      } else {
+        // Success
+        res.writeHead(200, { 'Content-Type': contentType });
+        res.end(content, 'utf-8');
+      }
+    });
   }
 });
 
-
-// ... other routes for login, makePost, etc.
-
-// POST route to receive new quack submissions
-app.post('/quacks', async (req, res) => {
-    try {
-      // Here you would handle the incoming quack data
-      // For example, you could call a function to save the quack to a database
-      const newQuack = await quackApi.addNewQuack(req.body);
-      res.status(201).json(newQuack); // Respond with the created quack and a 201 Created status
-    } catch (error) {
-      // If an error occurs, respond with the error message and a 500 Internal Server Error status
-      res.status(500).json({ error: error.message });
-    }
-  });
-  
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+server.listen(port, () => {
+  console.log(`Server running at port ${port}`);
 });
