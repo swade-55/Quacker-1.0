@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>Quacker</title>
+  <link rel="stylesheet" href="/css/index.css" />
+</head>
+<body>
+  <div id="logo-header">
+    <img src="logo.png" alt="quack-header" />
+  </div>
+
+  <div id="main-page">
+    <div id="top-quacks">
+      <h1 id="top-quack-title">Top Quacks For You</h1>
+      <!-- Top Quack Items Here -->
+    </div>
+
+    <div id="chat-box">
+      <div class="container">
+        <form class="add-quack-form">
+          <input
+            type="text"
+            name="name"
+            value=""
+            placeholder="User Name"
+            class="input-text"
+          />
+          <br />
+          <input
+            type="text"
+            name="image"
+            value=""
+            placeholder="What's Quackin?"
+            class="input-text"
+          />
+          <br />
+          <input
+            type="submit"
+            name="submit"
+            value="Quack"
+            class="submit"
+            onclick="submitQuack(event)"
+          />
+        </form>
+      </div>
+      <div id="quack-collection"></div>
+    </div>
+  </div>
+
+  <script src="/index.js" type="module"></script>
+
+  <script>
+    // Function to handle quack submission
+    function submitQuack(event) {
+      event.preventDefault(); // Prevent the default form submission
+      
+      const nameInput = document.querySelector('input[name="name"]');
+      const imageInput = document.querySelector('input[name="image"]');
+      
+      const name = nameInput.value;
+      const postContent = imageInput.value;
+      
+      // Create a new quack object
+      const newQuack = {
+        name,
+        postContent,
+        likeCount: 0,
+        comments:[],
+      };
+      
+      // Send the new quack to your server using fetch or AJAX
+      // Example using fetch:
+      fetch('http://localhost:3000/quacks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newQuack),
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response if needed
+        console.log('Quack posted:', data);
+        
+        // You can update the UI to display the new quack here
+      })
+      .catch(error => {
+        console.error('Error posting quack:', error);
+      });
+      
+      // Clear the input fields
+      nameInput.value = '';
+      imageInput.value = '';
+    }
+  </script>
+</body>
+</html>
