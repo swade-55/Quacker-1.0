@@ -22,17 +22,34 @@ class QuackApi {
       const quackName = document.createElement('h3');
       const quackContent = document.createElement('p');
       const quackLikes = document.createElement('p');
+      const deleteButton = document.createElement('button');
+      const likeButton = document.createElement('button');
+      const commentInput = document.createElement('input');
+      const commentButton = document.createElement('button');
 
       quackName.textContent = quack.name;
       quackContent.textContent = quack.postContent;
       quackLikes.textContent = `Likes: ${quack.likeCount}`;
+      deleteButton.textContent = 'Delete';
+      likeButton.textContent = 'Like';
+      commentInput.placeholder = 'Add a comment';
+      commentButton.textContent = 'Comment';
+
+      deleteButton.onclick = () => this.deleteQuack(quack._id);
+      likeButton.onclick = () => this.incrementLikes(quack._id);
+      commentButton.onclick = () => this.addComment(quack._id, commentInput.value);
 
       quackDiv.appendChild(quackName);
       quackDiv.appendChild(quackContent);
       quackDiv.appendChild(quackLikes);
+      quackDiv.appendChild(deleteButton);
+      quackDiv.appendChild(likeButton);
+      quackDiv.appendChild(commentInput);
+      quackDiv.appendChild(commentButton);
       quackCollection.appendChild(quackDiv);
     });
   }
+
 
   async addNewQuack(quackObject) {
     try {
@@ -43,6 +60,7 @@ class QuackApi {
         likeCount: 0, // Initialize likeCount to 0 for a new quack
         comments: [] // Initialize an empty array for comments
       };
+    
   
       // Make the POST request to the server
       const response = await fetch('http://localhost:3000/quacks', {
@@ -92,6 +110,58 @@ class QuackApi {
       }
     } catch (error) {
       console.error("Error fetching top quacks:", error);
+    }
+  }
+
+  async deleteQuack(quackId) {
+    try {
+      const response = await fetch(`http://localhost:3000/delete-quack?id=${quackId}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        await this.fetchQuacks(); // Refresh the quack list
+      } else {
+        throw new Error('Error deleting quack');
+      }
+    } catch (error) {
+      console.error("Error deleting quack:", error);
+    }
+  }
+
+  async incrementLikes(quackId) {
+    try {
+      const response = await fetch(`http://localhost:3000/increment-likes?id=${quackId}`, {
+        method: 'POST'
+      });
+
+      if (response.ok) {
+        await this.fetchQuacks(); // Refresh the quack list
+      } else {
+        throw new Error('Error incrementing likes');
+      }
+    } catch (error) {
+      console.error("Error incrementing likes:", error);
+    }
+  }
+
+  async addComment(quackId, comment) {
+    try {
+      const response = await fetch('http://localhost:3000/add-comment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ quackId, comment })
+      });
+
+      if (response.ok) {
+        await this.fetchQuacks(); // Refresh the quack list
+      } else {
+        throw new Error('Error adding comment');
+      }
+    } catch (error) {
+      console.error("Error adding comment:", error);
     }
   }
   
