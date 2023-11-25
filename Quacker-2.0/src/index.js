@@ -35,7 +35,10 @@ class QuackApi {
       commentInput.placeholder = 'Add a comment';
       commentButton.textContent = 'Comment';
 
-      deleteButton.onclick = () => this.deleteQuack(quack._id);
+      deleteButton.onclick = () => {
+        console.log('Delete button clicked for quackId:', quack._id);
+        this.deleteQuack(quack._id);
+      };
       likeButton.onclick = () => this.incrementLikes(quack._id);
       commentButton.onclick = () => this.addComment(quack._id, commentInput.value);
 
@@ -99,7 +102,7 @@ class QuackApi {
       }
       const topQuacks = await response.json();
   
-      // Log the response data for debugging
+      // Log the response data for 
       console.log("Top quacks data:", topQuacks);
   
       // Check if the response is an array before calling forEach
@@ -118,7 +121,7 @@ class QuackApi {
       const response = await fetch(`http://localhost:3000/delete-quack?id=${quackId}`, {
         method: 'DELETE'
       });
-
+  
       if (response.ok) {
         await this.fetchQuacks(); // Refresh the quack list
       } else {
@@ -189,4 +192,19 @@ class QuackApi {
 }
 
 const quackApi = new QuackApi();
-document.addEventListener("DOMContentLoaded", () => quackApi.init());
+document.addEventListener("DOMContentLoaded", () => {
+quackApi.init()
+const addQuackForm = document.querySelector('.add-quack-form');
+  if (addQuackForm) {
+    addQuackForm.style.display = 'block'; // This will make sure the form is visible
+    addQuackForm.addEventListener('submit', async function(event) {
+      event.preventDefault(); // This prevents the default form submission
+      const name = this.name.value;
+      const quackText = this.quackText.value;
+      if(name && quackText) {
+        await quackApi.addNewQuack({ name, quackText });
+      }
+    });
+}
+}
+);
