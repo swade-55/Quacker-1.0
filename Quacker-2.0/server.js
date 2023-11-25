@@ -10,8 +10,8 @@ const server = http.createServer(async (req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const pathname = parsedUrl.pathname;
 
-  // Handle API routes
   if (pathname === '/quacks' && req.method === 'GET') {
+    // Handle GET request for '/quacks'
     try {
       const quacks = await quackApi.getAllQuacks();
       res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -20,7 +20,25 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(500);
       res.end(JSON.stringify({ error: error.message }));
     }
+  } else if (pathname === '/quacks' && req.method === 'POST') {
+    // Handle POST request for '/quacks'
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk.toString();
+    });
+    req.on('end', async () => {
+      try {
+        const quackData = JSON.parse(body);
+        const newQuack = await quackApi.addNewQuack(quackData);
+        res.writeHead(201, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(newQuack));
+      } catch (error) {
+        res.writeHead(500);
+        res.end(JSON.stringify({ error: error.message }));
+      }
+    });
   } else if (pathname === '/top-quacks' && req.method === 'GET') {
+    // Handle GET request for '/top-quacks'
     try {
       const topQuacks = await quackApi.getTopFiveQuacks();
       res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -29,6 +47,46 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(500);
       res.end(JSON.stringify({ error: error.message }));
     }
+  } else if (pathname === '/delete-quack' && req.method === 'DELETE') {
+    // Handle DELETE request for '/delete-quack'
+    const quackId = parsedUrl.query.id;
+    try {
+      await quackApi.deletePost(quackId);
+      const quacks = await quackApi.getAllQuacks();
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(quacks));
+    } catch (error) {
+      res.writeHead(500);
+      res.end(JSON.stringify({ error: error.message }));
+    }
+  } else if (pathname === '/increment-likes' && req.method === 'POST') {
+    // Handle POST request for '/increment-likes'
+    const quackId = parsedUrl.query.id;
+    try {
+      const updatedQuack = await quackApi.incrementLikes(quackId);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(updatedQuack));
+    } catch (error) {
+      res.writeHead(500);
+      res.end(JSON.stringify({ error: error.message }));
+    }
+  } else if (pathname === '/add-comment' && req.method === 'POST') {
+    // Handle POST request for '/add-comment'
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk.toString();
+    });
+    req.on('end', async () => {
+      try {
+        const { quackId, comment } = JSON.parse(body);
+        const updatedQuack = await quackApi.addComment(quackId, comment);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(updatedQuack));
+      } catch (error) {
+        res.writeHead(500);
+        res.end(JSON.stringify({ error: error.message }));
+      }
+    });
   } else {
     // Serve static files
     let filePath = path.join(__dirname, 'src', pathname === '/' ? 'index.html' : pathname);
