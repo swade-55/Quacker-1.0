@@ -14,6 +14,23 @@
       </div>
     </div>
 
+    <!-- Logout Button -->
+    <button id="logoutButton">Logout</button>
+
+    <script>
+        // Logout Function
+        function logout() {
+            // If using session tokens or cookies, clear them here
+            // For example: sessionStorage.clear();
+
+            // Redirect to the login page
+            window.location.href = '/';
+        }
+
+        // Bind Logout Function to Button
+        document.getElementById('logoutButton').addEventListener('click', logout);
+    </script>
+
     <div id="main-page">
       <div id="top-quacks">
         <h1 id="top-quack-title">Top Quacks For You</h1>
@@ -64,6 +81,8 @@
         });
       });
     </script>
+
+    
     
   </body>
 </html>

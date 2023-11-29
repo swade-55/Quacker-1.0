@@ -19,13 +19,16 @@ async function connectDB() {
   }
 }
 
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 
-async function registerUser(email, password) {
-  const hashedPassword = await bcrypt.hash(password, 10);
+async function registerUser(username, email, password) {
+  // ... other code
   const usersCollection = client.db("quackdb").collection("users");
-  await usersCollection.insertOne({ email, password: hashedPassword });
+  const result = await usersCollection.insertOne({ username, email, password }); // Storing the password directly
+  return result.insertedId; // Return the insertedId if registration is successful
 }
+
+
 
 connectDB();
 

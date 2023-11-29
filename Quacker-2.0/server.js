@@ -119,7 +119,29 @@ const server = http.createServer(async (req, res) => {
         res.end(JSON.stringify({ error: error.message }));
       }
     });
-  } else {
+  } else if (pathname === '/register' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk.toString();
+    });
+    req.on('end', async () => {
+      try {
+        const { username, email, password } = JSON.parse(body);
+        const result = await quackApi.registerUser(username, email, password);
+        if (result) {
+          res.writeHead(201, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ message: "Registration successful" }));
+        } else {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: "Registration failed" }));
+        }
+      } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: error.message }));
+      }
+    });
+  }
+   else {
     // Static file serving logic for GET requests only
 if (req.method === 'GET' && !pathname.startsWith('/api/') && !res.finished) {
   let servePath;
