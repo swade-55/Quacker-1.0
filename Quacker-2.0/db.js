@@ -19,14 +19,32 @@ async function connectDB() {
   }
 }
 
+// const bcrypt = require('bcrypt');
+
+async function registerUser(username, email, password) {
+  // ... other code
+  const usersCollection = client.db("quackdb").collection("users");
+  const result = await usersCollection.insertOne({ username, email, password }); // Storing the password directly
+  return result.insertedId; // Return the insertedId if registration is successful
+}
+
+
+
 connectDB();
 
 // Login function
-async function login(username, password) {
+async function loginUser(email, password) {
   const usersCollection = client.db("quackdb").collection("users");
-  const user = await usersCollection.findOne({ username, password }); // Replace with hashed password check in production
-  return user;
+  const user = await usersCollection.findOne({ email });
+
+  if (user && user.password === password) {
+    return user; // User found and password matches
+  } else {
+    return null; // User not found or password does not match
+  }
 }
+
+
 
 // Make Post function
 async function addNewQuack(quack) {
@@ -74,15 +92,12 @@ async function addComment(quackId, comment) {
 
 // Expose functions for use in your application
 module.exports = {
-  login,
+  loginUser,
   addNewQuack,
   getAllQuacks,
   getTopFiveQuacks,
   deletePost,
   incrementLikes,
-  addComment
+  addComment,
+  registerUser
 };
-
-
-
-
